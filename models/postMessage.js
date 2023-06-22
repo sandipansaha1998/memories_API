@@ -11,13 +11,14 @@ const PostSchema = new mongoose.Schema(
       required: true,
     },
     creator: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
     tags: [String],
     selectedFile: String,
-    likeCount: {
-      type: Number,
-      default: 0,
+    likes: {
+      type: [String],
+      default: [],
     },
   },
   {
