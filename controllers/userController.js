@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const User = require("../models/user");
-
+const env = require("../config/enviroment");
 // User Login
 module.exports.login = async (req, res) => {
   const { email, password } = req.body;
@@ -24,7 +24,7 @@ module.exports.login = async (req, res) => {
         email: exsistingUser.email,
         id: exsistingUser._id,
       },
-      "test",
+      env.productionSecret,
       { expiresIn: "1h" }
     );
 
