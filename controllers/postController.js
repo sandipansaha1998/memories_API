@@ -9,7 +9,9 @@ module.exports.check = (req, res) => {
 // Fetch All posts
 module.exports.getPosts = async (req, res) => {
   try {
-    const posts = await Post.find().populate("creator", "name");
+    const posts = await Post.find()
+      .populate("creator", "name")
+      .sort({ createdAt: -1 });
     return res.status(200).json({
       posts,
     });
