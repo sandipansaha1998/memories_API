@@ -1,12 +1,15 @@
 const mongoose = require("mongoose");
-// Connect to the database
-mongoose.connect(`mongodb://localhost/memories_development`);
+const env = require("./enviroment").MONGO_KEY;
+console.log(env);
+const uri = `mongodb+srv://${env.user}:${env.password}@cluster0.ucj81es.mongodb.net/memories_api?retryWrites=true&w=majority`;
 
-// Aquire the connection to check if the connection is successfull
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "Error connecting to MongoDB"));
-db.once("open", function () {
-  console.log(`Connected to Database :: MongoDB `);
-});
-
-module.exports = db;
+async function run() {
+  try {
+    await mongoose.connect(uri);
+    console.log("You successfully connected to MongoDB!");
+  } catch (e) {
+    console.log("Connection to Mongo Failed");
+    throw new Error("Mongo Connection");
+  }
+}
+module.exports = run;
